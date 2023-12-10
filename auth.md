@@ -91,3 +91,18 @@
 > Guesswork Based on File Naming Conventions   
 > The initial JavaScript bundle loaded by the application may contain references to other chunks, such as dynamic import statements.
 
+# CSRF Attack and Mitigation
+
+## CSRF Attack
+1. **CSRF Definition**: Cross-Site Request Forgery (CSRF) is an attack that tricks a user's browser into executing unauthorized actions on a web application where the user is authenticated.
+2. **Attack Mechanism**: It exploits the browser's behavior of automatically attaching cookies to requests to a domain. Attackers create malicious websites or scripts to send requests (like POST requests) to a target application using the user's authenticated session.
+3. **User Interaction**: The attack usually occurs when a user is logged into a web application and unknowingly visits or interacts with a malicious site.
+4. **Session Cookies**: The browser includes session cookies with these requests, making them appear legitimate to the target application.
+5. **Application Response**: If unprotected, the application processes these requests as if they were intentionally made by the user.
+
+## Mitigation Strategies
+6. **Use CSRF Tokens**: Implement server-side generated CSRF tokens that the client must include in requests. The server validates this token before processing requests.
+7. **SameSite Cookie Attribute**: Set the `SameSite` attribute for cookies. `SameSite=Strict` or `Lax` prevents cookies from being sent in cross-origin requests, thwarting CSRF attempts.
+8. **HttpOnly and Secure Attributes**: Mark cookies as `HttpOnly` to prevent access via JavaScript and `Secure` to ensure they are sent over HTTPS.
+9. **Validate Referer Header**: Check the `Referer` header in HTTP requests to ensure requests are coming from allowed domains.
+10. **User Education**: Educate users about the risks of phishing and the importance of security practices, such as not clicking on suspicious links.

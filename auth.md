@@ -62,7 +62,7 @@
 
 
 
-> # SPA vs SSR (Remix)
+> # SPA vs SSR 
 > **SPA**: In a Vite with React setup, the entire JavaScript bundle is typically loaded by the client's browser upon the initial visit,   
 > regardless of the user's authentication status. This means that all the code related to the application, including routes and components
 > that might only be relevant post-authentication, is available to the client.

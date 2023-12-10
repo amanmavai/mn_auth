@@ -93,12 +93,27 @@
 
 # CSRF Attack and Mitigation
 
-## CSRF Attack
-1. **CSRF Definition**: Cross-Site Request Forgery (CSRF) is an attack that tricks a user's browser into executing unauthorized actions on a web application where the user is authenticated.
-2. **Attack Mechanism**: It exploits the browser's behavior of automatically attaching cookies to requests to a domain. Attackers create malicious websites or scripts to send requests (like POST requests) to a target application using the user's authenticated session.
-3. **User Interaction**: The attack usually occurs when a user is logged into a web application and unknowingly visits or interacts with a malicious site.
-4. **Session Cookies**: The browser includes session cookies with these requests, making them appear legitimate to the target application.
-5. **Application Response**: If unprotected, the application processes these requests as if they were intentionally made by the user.
+# CSRF Attack Explanation with Practical Examples
+
+1. **CSRF Definition**: Cross-Site Request Forgery (CSRF) is a security threat where a malicious website causes a user's browser to perform an action on another website where the user is authenticated.
+
+2. **Typical Attack Flow**:
+   - A user logs into `www.legitbank.com` and receives a session cookie.
+   - Without logging out, the user visits a malicious site: `www.attackersite.com`.
+   - `www.attackersite.com` contains a form or script that makes a request to `www.legitbank.com` (e.g., to transfer money) using the user's credentials.
+
+3. **Automatic Cookie Transmission**:
+   - When the malicious site makes a request to `www.legitbank.com`, the user's browser automatically attaches the session cookie from `www.legitbank.com`.
+   - The browser does this because it recognizes the domain of the cookie (`www.legitbank.com`) and includes it in all requests to that domain.
+
+4. **Server Misinterpretation**:
+   - `www.legitbank.com` receives the forged request with the user's cookie, which makes the request appear legitimate.
+   - If `www.legitbank.com` doesn't verify the origin of the request, it might process the action (e.g., transferring funds), thinking it was intentionally made by the user.
+
+5. **Lack of User Consent**:
+   - The key to CSRF is that the action on `www.legitbank.com` is executed without the user's knowledge or consent.
+   - The user might not even realize that `www.attackersite.com` has performed actions on their behalf on `www.legitbank.com`.
+
 
 ## Mitigation Strategies
 6. **Use CSRF Tokens**: Implement server-side generated CSRF tokens that the client must include in requests. The server validates this token before processing requests.

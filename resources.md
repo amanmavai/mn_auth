@@ -1,0 +1,2 @@
+- [ ] https://vercel.com/guides/understanding-xss-attacks
+- [ ] https://vercel.com/guides/understanding-csrf-attacks
